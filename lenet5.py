@@ -13,6 +13,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import numpy as np
+import time
 #import adamod
 class LeNet5(nn.Module):
     def __init__(self):
@@ -161,10 +162,16 @@ def main():
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
     
     ### Training Phase
+    start_time = time.perf_counter()
+    
     for epoch in range(1, args.epochs + 1):
         train(args, model, device, train_loader, optimizer, epoch)
         test(model, device, test_loader)
         scheduler.step()
+    # Code training của bạn ở đây
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
+    print(f"Training time: {execution_time:.2f} seconds")
 
     ### Save the model
     if args.save_model:
