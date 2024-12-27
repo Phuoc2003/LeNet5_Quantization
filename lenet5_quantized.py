@@ -16,9 +16,6 @@ import torch.quantization
 from torch.quantization import QuantStub, DeQuantStub
 import time
 
-
-
-
 class LeNet5(nn.Module):
     def __init__(self):
         super(LeNet5, self).__init__()
