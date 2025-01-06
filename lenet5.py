@@ -41,8 +41,6 @@ class LeNet5(nn.Module):
         output = torch.log_softmax(x, dim=1)
         return output
 
-import numpy as np
-
 def save_weights_to_txt(model):
     weights_dir = "data/weights/"  # Directory to save weights
     import os

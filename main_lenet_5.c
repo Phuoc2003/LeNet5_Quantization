@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "tensor.h"
 #include <math.h>
+#include <time.h>
 
 void relu(float *x, int size);
 
@@ -39,6 +40,9 @@ int main(int argc, char** argv){
 
    int i,j,m,n,index;
    FILE *fp;
+
+   clock_t start, end;
+   double cpu_time_used;
 
     /* Load Weights from DDR->LMM */
    fp = fopen("data/weights/w_conv1.txt", "r");
@@ -114,6 +118,8 @@ int main(int argc, char** argv){
    float *datain;
    int acc = 0;
    int mm, nn;
+
+    start = clock();
    for(i=0;i<LABEL_LEN;i++) {
 
        datain = &dataset[i*28*28];
@@ -148,8 +154,11 @@ int main(int argc, char** argv){
        printf("Predicted label: %d\n", index);
        printf("Prediction: %d/%d\n", acc, i+1);
    }
+   end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
    printf("Accuracy = %f\n", acc*1.0f/LABEL_LEN);
-
+printf("Total inference time: %f seconds\n", cpu_time_used);
+printf("Average time per image: %f seconds\n", cpu_time_used/LABEL_LEN);
     return 0;
 }
 

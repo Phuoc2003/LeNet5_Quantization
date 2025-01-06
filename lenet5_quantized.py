@@ -71,8 +71,6 @@ def quantize_and_save_weights(model, test_loader):
         
         # Lưu data
         np.savetxt(f"{weights_dir}{filename}", tensor_int8.reshape(-1), fmt='%d')
-        # Lưu scale factor
-        np.savetxt(f"{weights_dir}{filename}_scale.txt", [scale], fmt='%.10f')
 
     # Lấy state dict của model
     state_dict = model.state_dict()
